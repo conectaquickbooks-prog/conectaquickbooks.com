@@ -4,322 +4,577 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MYV Smartbooks LLC | Conecta QuickBooks</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy: #161f36;
-  --navy2: #1e2a45;
-  --green: #1e7a10;
-  --green-pale: #f2f8f1;
+  --black: #0a0a0a;
+  --navy: #111827;
+  --green: #16a34a;
+  --green-dark: #15803d;
+  --green-pale: #f0fdf4;
   --white: #ffffff;
-  --off-white: #f8f8f6;
-  --gray: #6b7280;
-  --gray-light: #9ca3af;
-  --border: #e8e8e5;
-  --text: #1a1a2e;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-900: #111827;
+  --border: #e5e7eb;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* NAV */
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--white);
+  color: var(--navy);
+  overflow-x: hidden;
+}
+
+/* ─── NAV ─── */
 nav {
-  position: fixed; top: 0; width: 100%; z-index: 100;
-  padding: 1.25rem 5rem;
-  display: flex; justify-content: space-between; align-items: center;
-  background: rgba(255,255,255,0.97);
+  position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+  height: 72px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 6rem;
+  background: var(--white);
   border-bottom: 1px solid var(--border);
 }
-.nav-logo {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.15rem; font-weight: 500;
-  color: var(--navy); letter-spacing: 0.01em;
-}
-.nav-logo span { color: var(--green); }
-.nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
-.nav-links a {
-  text-decoration: none; color: var(--navy);
-  font-size: 0.78rem; font-weight: 400;
-  letter-spacing: 0.07em; text-transform: uppercase;
-  opacity: 0.55; transition: opacity 0.2s;
-}
-.nav-links a:hover { opacity: 1; }
-.nav-cta {
-  background: var(--navy) !important; color: var(--white) !important;
-  opacity: 1 !important; padding: 0.5rem 1.35rem !important;
-  border-radius: 2px; letter-spacing: 0.07em;
-}
 
-/* HERO */
+.logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 700;
+  color: var(--navy); letter-spacing: -0.01em;
+  text-decoration: none;
+}
+.logo span { color: var(--green); }
+
+.nav-links {
+  display: flex; gap: 3rem; list-style: none;
+  align-items: center;
+}
+.nav-links a {
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gray-500); text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--navy); }
+.nav-btn {
+  font-size: 0.72rem !important; font-weight: 600 !important;
+  letter-spacing: 0.1em !important; text-transform: uppercase !important;
+  color: var(--white) !important;
+  background: var(--navy);
+  padding: 0.65rem 1.5rem;
+  border-radius: 1px;
+  transition: background 0.2s !important;
+}
+.nav-btn:hover { background: var(--green) !important; color: var(--white) !important; }
+
+/* ─── HERO ─── */
 .hero {
   min-height: 100vh;
-  display: grid; grid-template-columns: 1fr 1fr;
+  padding: 72px 6rem 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  padding: 8rem 5rem 5rem;
-  gap: 5rem;
-  background: var(--white);
+  gap: 8rem;
+  position: relative;
+  overflow: hidden;
 }
-.hero-eyebrow {
-  font-size: 0.7rem; font-weight: 500;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--gray-light);
-  margin-bottom: 1.5rem;
-  display: flex; align-items: center; gap: 0.75rem;
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 50%;
+  height: 100%;
+  background: var(--gray-50);
+  z-index: -1;
 }
-.hero-eyebrow::before {
-  content: ''; display: block;
-  width: 24px; height: 1px; background: var(--green);
+
+.hero-left { padding: 6rem 0; }
+
+.hero-kicker {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 2rem;
 }
+.hero-kicker-line {
+  width: 32px; height: 2px;
+  background: var(--green);
+}
+.hero-kicker-text {
+  font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--green);
+}
+
 .hero h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 3.5rem; font-weight: 400;
-  line-height: 1.18; color: var(--navy);
-  margin-bottom: 1.75rem;
+  font-size: 4.5rem; font-weight: 700;
+  line-height: 1.1;
+  color: var(--navy);
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
 }
-.hero h1 em { font-style: italic; font-weight: 400; color: var(--green); }
-.hero-desc {
-  font-size: 0.95rem; line-height: 1.9;
-  color: var(--gray); max-width: 440px;
-  margin-bottom: 1.75rem;
-}
-.hero-contact {
-  display: flex; flex-direction: column; gap: 0.4rem;
-  margin-bottom: 2.25rem;
-  padding-left: 0;
-}
-.contact-item {
-  display: flex; align-items: center; gap: 0.75rem;
-  font-size: 0.85rem; color: var(--navy);
+.hero h1 em {
+  font-style: italic;
   font-weight: 400;
+  color: var(--green);
 }
-.contact-sep { width: 1px; height: 12px; background: var(--border); }
-.hero-buttons { display: flex; gap: 1.25rem; align-items: center; }
-.btn-primary {
-  background: var(--navy); color: var(--white);
-  padding: 0.85rem 1.75rem; border: none; border-radius: 2px;
-  font-family: 'Inter', sans-serif; font-size: 0.75rem; font-weight: 500;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  cursor: pointer; text-decoration: none; display: inline-block;
-  transition: background 0.2s;
-}
-.btn-primary:hover { background: var(--navy2); }
-.btn-ghost {
-  color: var(--navy); font-size: 0.8rem; font-weight: 400;
-  text-decoration: none; opacity: 0.5; transition: opacity 0.2s;
-}
-.btn-ghost:hover { opacity: 1; }
 
-/* HERO CARD */
-.hero-visual { display: flex; flex-direction: column; gap: 1rem; }
-.hero-card-main {
-  background: var(--navy);
-  border-radius: 3px; padding: 2.5rem;
-  color: var(--white);
+.hero-desc {
+  font-size: 1rem; font-weight: 300;
+  line-height: 1.9; color: var(--gray-500);
+  max-width: 420px;
+  margin-bottom: 3rem;
 }
-.hc-label {
-  font-size: 0.65rem; letter-spacing: 0.16em;
-  text-transform: uppercase; color: rgba(255,255,255,0.35);
+
+.hero-contact {
+  display: flex; flex-direction: column; gap: 0.5rem;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+}
+.hero-contact-item {
+  font-size: 0.875rem; color: var(--navy); font-weight: 400;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.hero-contact-label {
+  font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gray-400); min-width: 60px;
+}
+
+.hero-cta {
+  display: flex; gap: 1.5rem; align-items: center;
+}
+.btn-dark {
+  background: var(--navy); color: var(--white);
+  padding: 1rem 2.25rem;
+  font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  border: none; border-radius: 1px;
+  text-decoration: none; display: inline-block;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.btn-dark:hover { background: var(--green); }
+.btn-text {
+  font-size: 0.75rem; font-weight: 500;
+  color: var(--gray-500); text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+.btn-text:hover { color: var(--navy); }
+
+/* HERO RIGHT */
+.hero-right {
+  padding: 6rem 2rem 6rem 4rem;
+  display: flex; flex-direction: column; gap: 2rem;
+}
+
+.stat-block {
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.stat-block:last-child { border-bottom: none; }
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 4rem; font-weight: 700;
+  color: var(--navy); line-height: 1;
+  letter-spacing: -0.02em;
+}
+.stat-number span { color: var(--green); }
+.stat-label {
+  font-size: 0.8rem; font-weight: 400;
+  color: var(--gray-400); margin-top: 0.5rem;
+  letter-spacing: 0.03em;
+}
+.stat-services {
+  display: flex; flex-direction: column; gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+.stat-service {
+  display: flex; align-items: center; gap: 0.75rem;
+  font-size: 0.82rem; color: var(--gray-500); font-weight: 400;
+}
+.stat-service::before {
+  content: '';
+  width: 4px; height: 4px;
+  background: var(--green);
+  border-radius: 50%; flex-shrink: 0;
+}
+
+/* ─── TICKER ─── */
+.ticker {
+  background: var(--navy);
+  padding: 1.25rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.ticker-track {
+  display: inline-flex; gap: 4rem;
+  animation: ticker 20s linear infinite;
+}
+.ticker-item {
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  display: flex; align-items: center; gap: 1rem;
+  flex-shrink: 0;
+}
+.ticker-dot {
+  width: 4px; height: 4px;
+  background: var(--green); border-radius: 50;
+}
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── SERVICES ─── */
+.services {
+  padding: 9rem 6rem;
+  background: var(--white);
+}
+
+.section-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  margin-bottom: 6rem;
+  align-items: end;
+}
+.section-kicker {
+  display: flex; align-items: center; gap: 1rem;
   margin-bottom: 1.5rem;
 }
-.hc-number {
-  font-family: 'Playfair Display', serif;
-  font-size: 3.5rem; font-weight: 400;
-  color: var(--white); line-height: 1;
-}
-.hc-sub { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-top: 0.25rem; }
-.hc-divider { height: 1px; background: rgba(255,255,255,0.08); margin: 1.5rem 0; }
-.hc-list { display: flex; flex-direction: column; gap: 0.55rem; }
-.hc-item {
-  display: flex; align-items: center; gap: 0.75rem;
-  font-size: 0.82rem; color: rgba(255,255,255,0.6);
-}
-.hc-dot { width: 4px; height: 4px; background: var(--green); border-radius: 50%; flex-shrink: 0; }
-
-.hero-card-sub {
-  background: var(--green-pale);
-  border: 1px solid rgba(30,122,16,0.12);
-  border-radius: 3px; padding: 1.25rem 1.5rem;
-  display: flex; align-items: center; gap: 1rem;
-}
-.hcs-icon { font-size: 1.1rem; }
-.hcs-text { font-size: 0.82rem; color: var(--navy); font-weight: 500; }
-.hcs-sub { font-size: 0.73rem; color: var(--gray-light); margin-top: 0.1rem; }
-
-/* CREDS BAR */
-.creds-bar {
-  background: var(--off-white);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 1.25rem 5rem;
-  display: flex; justify-content: center;
-  gap: 4rem; flex-wrap: wrap;
-}
-.cred-item {
-  font-size: 0.7rem; font-weight: 400;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--gray); display: flex; align-items: center; gap: 0.6rem;
-}
-.cred-line { width: 16px; height: 1px; background: var(--green); }
-
-/* SERVICES */
-.services { padding: 7rem 5rem; background: var(--white); }
-.section-eyebrow {
-  font-size: 0.68rem; font-weight: 500;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--gray-light);
-  display: flex; align-items: center; gap: 0.75rem;
-  margin-bottom: 1.25rem;
-}
-.section-eyebrow::before {
-  content: ''; display: block;
-  width: 20px; height: 1px; background: var(--green);
+.section-kicker-line { width: 24px; height: 2px; background: var(--green); }
+.section-kicker-text {
+  font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--green);
 }
 .section-title {
   font-family: 'Playfair Display', serif;
-  font-size: 2.5rem; font-weight: 400;
-  color: var(--navy); line-height: 1.2;
-  margin-bottom: 3.5rem;
+  font-size: 3rem; font-weight: 700;
+  color: var(--navy); line-height: 1.15;
+  letter-spacing: -0.02em;
 }
-.section-title em { font-style: italic; color: var(--green); }
+.section-title em { font-style: italic; font-weight: 400; color: var(--green); }
+.section-desc {
+  font-size: 0.9rem; font-weight: 300;
+  line-height: 1.85; color: var(--gray-500);
+  align-self: end;
+}
 
-.services-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 1px; background: var(--border);
-  border: 1px solid var(--border); border-radius: 3px; overflow: hidden;
+.services-list {
+  display: flex; flex-direction: column;
+  border-top: 1px solid var(--border);
 }
-.service-card { background: var(--white); padding: 2.25rem; transition: background 0.25s; }
-.service-card:hover { background: var(--off-white); }
-.svc-num {
+.service-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 200px 160px;
+  gap: 3rem;
+  align-items: center;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+  cursor: default;
+}
+.service-row:hover { background: var(--gray-50); margin: 0 -6rem; padding: 2.5rem 6rem; }
+.service-num {
   font-family: 'Playfair Display', serif;
-  font-size: 1.25rem; font-weight: 400;
-  color: var(--border); margin-bottom: 1.25rem;
+  font-size: 1rem; font-weight: 400;
+  color: var(--gray-400);
 }
-.service-card h3 {
+.service-name {
   font-family: 'Playfair Display', serif;
-  font-size: 1.15rem; font-weight: 500;
-  color: var(--navy); margin-bottom: 0.75rem;
+  font-size: 1.5rem; font-weight: 500;
+  color: var(--navy);
 }
-.service-card p { font-size: 0.82rem; line-height: 1.75; color: var(--gray); }
-.svc-price { margin-top: 1.25rem; font-size: 0.72rem; font-weight: 500; color: var(--green); letter-spacing: 0.04em; }
+.service-desc {
+  font-size: 0.82rem; font-weight: 300;
+  line-height: 1.7; color: var(--gray-500);
+}
+.service-price {
+  font-size: 0.75rem; font-weight: 600;
+  color: var(--green); letter-spacing: 0.04em;
+  text-align: right;
+}
 
-/* PACKAGES */
-.packages { padding: 7rem 5rem; background: var(--off-white); }
-.pkg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 3.5rem; }
+/* ─── PACKAGES ─── */
+.packages {
+  padding: 9rem 6rem;
+  background: var(--navy);
+}
+.packages .section-kicker-text { color: var(--green); }
+.packages .section-title { color: var(--white); }
+.packages .section-title em { color: var(--green); }
+.packages .section-desc { color: rgba(255,255,255,0.4); }
+.packages .section-kicker-line { background: var(--green); }
+
+.pkg-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  margin-top: 5rem;
+}
 .pkg-card {
-  background: var(--white); border-radius: 3px;
-  padding: 2.25rem; border: 1px solid var(--border);
+  background: var(--navy);
+  padding: 3rem 2.5rem;
   position: relative;
+  transition: background 0.3s;
 }
-.pkg-card.featured { background: var(--navy); border-color: var(--navy); }
+.pkg-card:hover { background: rgba(255,255,255,0.03); }
+.pkg-card.featured { background: var(--green); }
+.pkg-card.featured:hover { background: var(--green-dark); }
+
 .pkg-badge {
-  position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
-  background: var(--green); color: var(--white);
-  font-size: 0.58rem; font-weight: 500;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  padding: 0.22rem 0.875rem; border-radius: 2px; white-space: nowrap;
+  display: inline-block;
+  font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--navy); background: var(--white);
+  padding: 0.25rem 0.75rem; border-radius: 1px;
+  margin-bottom: 2rem;
 }
-.pkg-name { font-size: 0.62rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gray-light); margin-bottom: 1rem; }
-.pkg-card.featured .pkg-name { color: rgba(255,255,255,0.4); }
+.pkg-name {
+  font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 1.5rem;
+}
+.pkg-card.featured .pkg-name { color: rgba(255,255,255,0.7); }
 .pkg-price {
   font-family: 'Playfair Display', serif;
-  font-size: 2.75rem; font-weight: 400;
-  color: var(--navy); line-height: 1;
+  font-size: 3.5rem; font-weight: 700;
+  color: var(--white); line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5rem;
 }
-.pkg-card.featured .pkg-price { color: var(--white); }
-.pkg-period { font-size: 0.78rem; color: var(--gray-light); margin: 0.2rem 0 2rem; }
-.pkg-card.featured .pkg-period { color: rgba(255,255,255,0.35); }
-.pkg-features { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2rem; }
-.pkg-features li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.82rem; color: var(--gray); line-height: 1.5; }
-.pkg-card.featured .pkg-features li { color: rgba(255,255,255,0.6); }
-.pkg-check { color: var(--green); font-size: 0.7rem; flex-shrink: 0; margin-top: 3px; }
+.pkg-period {
+  font-size: 0.75rem; color: rgba(255,255,255,0.35);
+  margin-bottom: 2.5rem;
+}
+.pkg-card.featured .pkg-period { color: rgba(255,255,255,0.6); }
+.pkg-features {
+  list-style: none;
+  display: flex; flex-direction: column; gap: 0.875rem;
+  margin-bottom: 3rem;
+}
+.pkg-features li {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  font-size: 0.82rem; font-weight: 300;
+  color: rgba(255,255,255,0.5); line-height: 1.5;
+}
+.pkg-card.featured .pkg-features li { color: rgba(255,255,255,0.85); }
+.pkg-check { color: var(--green); flex-shrink: 0; margin-top: 1px; font-size: 0.75rem; }
+.pkg-card.featured .pkg-check { color: var(--white); }
 .pkg-btn {
-  width: 100%; padding: 0.8rem; border-radius: 2px;
-  font-family: 'Inter', sans-serif; font-size: 0.72rem; font-weight: 500;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  cursor: pointer; border: 1px solid var(--border);
-  background: transparent; color: var(--navy);
-  transition: all 0.2s; text-decoration: none; display: block; text-align: center;
+  display: block; text-align: center;
+  padding: 0.875rem;
+  font-size: 0.7rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.6);
+  border-radius: 1px;
+  transition: all 0.2s;
 }
-.pkg-btn:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
-.pkg-card.featured .pkg-btn { background: var(--green); border-color: var(--green); color: var(--white); }
-.pkg-card.featured .pkg-btn:hover { opacity: 0.85; }
+.pkg-btn:hover { border-color: var(--white); color: var(--white); }
+.pkg-card.featured .pkg-btn {
+  background: var(--navy); border-color: var(--navy);
+  color: var(--white);
+}
+.pkg-card.featured .pkg-btn:hover { background: rgba(0,0,0,0.3); border-color: transparent; }
 
-/* ABOUT */
-.about { padding: 7rem 5rem; background: var(--white); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
-.about-box { background: var(--navy); border-radius: 3px; padding: 3rem; color: var(--white); }
-.about-firm-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.75rem; font-weight: 400;
-  color: var(--white); margin-bottom: 0.3rem;
+/* ─── ABOUT ─── */
+.about {
+  padding: 9rem 6rem;
+  background: var(--white);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8rem;
+  align-items: center;
 }
-.about-firm-sub { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 1.5rem; }
-.about-firm-desc { font-size: 0.85rem; line-height: 1.8; color: rgba(255,255,255,0.55); margin-bottom: 2rem; }
-.team-label { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 0.875rem; }
+
+.about-left h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem; font-weight: 700;
+  line-height: 1.15; color: var(--navy);
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+.about-left h2 em { font-style: italic; font-weight: 400; color: var(--green); }
+.about-left p {
+  font-size: 0.9rem; font-weight: 300;
+  line-height: 1.9; color: var(--gray-500);
+  margin-bottom: 1rem;
+}
+.cred-list {
+  display: flex; flex-direction: column; gap: 0;
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--border);
+}
+.cred-item {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.82rem; color: var(--navy); font-weight: 400;
+}
+.cred-check { color: var(--green); font-size: 0.75rem; flex-shrink: 0; }
+
+.about-right {
+  background: var(--gray-50);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 3rem;
+}
+.firm-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.75rem; font-weight: 700;
+  color: var(--navy); letter-spacing: -0.01em;
+  margin-bottom: 0.25rem;
+}
+.firm-sub {
+  font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gray-400); margin-bottom: 1.5rem;
+}
+.firm-desc {
+  font-size: 0.85rem; font-weight: 300;
+  line-height: 1.8; color: var(--gray-500);
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.team-label {
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--gray-400); margin-bottom: 1rem;
+}
 .team-member {
   display: flex; align-items: center; gap: 1rem;
-  padding: 0.875rem 1rem;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 2px;
+  padding: 1rem;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 1px;
+  margin-bottom: 1.5rem;
 }
-.team-avatar {
-  width: 36px; height: 36px; border-radius: 50%;
-  background: rgba(255,255,255,0.08);
+.avatar {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--navy);
   display: flex; align-items: center; justify-content: center;
   font-family: 'Playfair Display', serif;
-  font-size: 0.875rem; font-weight: 500; color: rgba(255,255,255,0.6);
+  font-size: 0.875rem; font-weight: 700; color: var(--white);
   flex-shrink: 0;
 }
-.team-name { font-size: 0.85rem; font-weight: 500; color: var(--white); }
-.team-role { font-size: 0.7rem; color: rgba(255,255,255,0.35); margin-top: 0.1rem; }
-.about-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.07); }
-.about-stat .num { font-family: 'Playfair Display', serif; font-size: 1.625rem; font-weight: 400; color: var(--white); }
-.about-stat .lbl { font-size: 0.65rem; color: rgba(255,255,255,0.3); margin-top: 0.15rem; line-height: 1.4; }
-.about-text h2 { font-family: 'Playfair Display', serif; font-size: 2.25rem; font-weight: 400; line-height: 1.25; margin-bottom: 1.25rem; color: var(--navy); }
-.about-text h2 em { font-style: italic; color: var(--green); }
-.about-text p { font-size: 0.88rem; line-height: 1.9; color: var(--gray); margin-bottom: 1rem; }
-.cred-list { display: flex; flex-direction: column; gap: 0.6rem; margin-top: 1.5rem; }
-.cred-row { display: flex; align-items: center; gap: 0.65rem; font-size: 0.82rem; color: var(--navy); }
-.cred-check { color: var(--green); font-size: 0.75rem; }
-
-/* CONTACT */
-.contact-sec { padding: 7rem 5rem; background: var(--off-white); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
-.contact-sec h2 { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 400; line-height: 1.2; margin-bottom: 1rem; color: var(--navy); }
-.contact-sec h2 em { font-style: italic; color: var(--green); }
-.contact-sec p { font-size: 0.88rem; color: var(--gray); line-height: 1.85; margin-bottom: 2rem; }
-.contact-cards { display: flex; flex-direction: column; gap: 0.875rem; }
-.contact-card {
-  display: flex; align-items: center; gap: 1rem;
-  padding: 1.1rem 1.35rem;
-  background: var(--white); border: 1px solid var(--border);
-  border-radius: 3px; text-decoration: none; transition: border-color 0.2s, box-shadow 0.2s;
+.member-name { font-size: 0.875rem; font-weight: 500; color: var(--navy); }
+.member-role { font-size: 0.7rem; color: var(--gray-400); margin-top: 0.1rem; }
+.firm-stats {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
 }
-.contact-card:hover { border-color: var(--navy); box-shadow: 0 2px 12px rgba(22,31,54,0.06); }
-.cc-icon { width: 34px; height: 34px; background: var(--off-white); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; flex-shrink: 0; }
-.cc-label { font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-light); margin-bottom: 0.15rem; }
-.cc-value { font-size: 0.875rem; font-weight: 500; color: var(--navy); }
+.firm-stat .num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem; font-weight: 700; color: var(--navy);
+}
+.firm-stat .lbl {
+  font-size: 0.68rem; color: var(--gray-400);
+  margin-top: 0.15rem; line-height: 1.4;
+}
 
-/* FOOTER */
-footer { background: var(--navy); padding: 2.5rem 5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-.footer-logo { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--white); font-weight: 400; }
+/* ─── CONTACT ─── */
+.contact {
+  padding: 9rem 6rem;
+  background: var(--gray-50);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8rem;
+  align-items: center;
+}
+.contact h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem; font-weight: 700;
+  line-height: 1.15; color: var(--navy);
+  letter-spacing: -0.02em; margin-bottom: 1.25rem;
+}
+.contact h2 em { font-style: italic; font-weight: 400; color: var(--green); }
+.contact p {
+  font-size: 0.9rem; font-weight: 300;
+  line-height: 1.9; color: var(--gray-500);
+  margin-bottom: 2.5rem;
+}
+.contact-cards {
+  display: flex; flex-direction: column; gap: 0;
+  border-top: 1px solid var(--border);
+}
+.contact-card {
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  transition: padding-left 0.2s;
+}
+.contact-card:hover { padding-left: 0.5rem; }
+.cc-icon {
+  width: 40px; height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 1px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.875rem; flex-shrink: 0;
+  background: var(--white);
+  transition: border-color 0.2s;
+}
+.contact-card:hover .cc-icon { border-color: var(--green); }
+.cc-label {
+  font-size: 0.62rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gray-400); margin-bottom: 0.2rem;
+}
+.cc-value { font-size: 0.9rem; font-weight: 500; color: var(--navy); }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--black);
+  padding: 3rem 6rem;
+  display: flex; justify-content: space-between;
+  align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem; font-weight: 700; color: var(--white);
+}
 .footer-logo span { color: var(--green); }
-.footer-links { display: flex; gap: 2rem; list-style: none; }
-.footer-links a { font-size: 0.72rem; color: rgba(255,255,255,0.3); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+.footer-links { display: flex; gap: 2.5rem; list-style: none; }
+.footer-links a {
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.25); text-decoration: none;
+  transition: color 0.2s;
+}
 .footer-links a:hover { color: rgba(255,255,255,0.7); }
-.footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.25); }
+.footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.2); }
 
-@media (max-width: 960px) {
-  nav { padding: 1rem 1.5rem; }
+@media (max-width: 1024px) {
+  nav { padding: 0 2rem; }
   .nav-links { display: none; }
-  .hero { grid-template-columns: 1fr; padding: 6rem 1.5rem 3rem; gap: 2.5rem; }
-  .hero h1 { font-size: 2.5rem; }
-  .hero-visual { display: none; }
-  .creds-bar { padding: 1.25rem 1.5rem; gap: 1.5rem; }
-  .services, .packages, .about, .contact-sec { padding: 4rem 1.5rem; }
-  .services-grid, .pkg-grid { grid-template-columns: 1fr; }
-  .about, .contact-sec { grid-template-columns: 1fr; gap: 3rem; }
-  .about-stats { grid-template-columns: repeat(2, 1fr); }
-  footer { padding: 2rem 1.5rem; flex-direction: column; text-align: center; }
+  .hero { grid-template-columns: 1fr; padding: 72px 2rem 4rem; gap: 3rem; }
+  .hero::after { display: none; }
+  .hero h1 { font-size: 3rem; }
+  .hero-right { padding: 0; }
+  .ticker { display: none; }
+  .services, .packages, .about, .contact { padding: 5rem 2rem; }
+  .section-header { grid-template-columns: 1fr; gap: 1.5rem; }
+  .service-row { grid-template-columns: 40px 1fr; gap: 1.5rem; }
+  .service-desc, .service-price { display: none; }
+  .pkg-grid { grid-template-columns: 1fr; }
+  .about, .contact { grid-template-columns: 1fr; gap: 4rem; }
+  footer { padding: 2rem; flex-direction: column; text-align: center; }
 }
 </style>
 </head>
@@ -327,82 +582,153 @@ footer { background: var(--navy); padding: 2.5rem 5rem; display: flex; justify-c
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">Conecta<span>QuickBooks</span></div>
+  <a href="#" class="logo">Conecta<span>QuickBooks</span></a>
   <ul class="nav-links">
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#paquetes">Paquetes</a></li>
-    <li><a href="#nosotros">Nosotros</a></li>
-    <li><a href="#contacto" class="nav-cta">Consulta gratis</a></li>
+    <li><a href="#nosotros">Firma</a></li>
+    <li><a href="#contacto" class="nav-btn">Consulta gratis</a></li>
   </ul>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-  <div>
-    <div class="hero-eyebrow">MYV Smartbooks LLC · Firma de Contabilidad</div>
-    <h1>La contabilidad<br>de tu negocio,<br>en <em>manos expertas.</em></h1>
-    <p class="hero-desc">Bookkeeping, taxes y consultoría QuickBooks para negocios latinos en Estados Unidos. Trabajamos en español, con la precisión que el IRS exige.</p>
-    <div class="hero-contact">
-      <div class="contact-item">+1 (910) 593-2185</div>
-      <div class="contact-item">+57 305 232 5932</div>
-      <div class="contact-item">info@conectaquickbooks.com</div>
+  <div class="hero-left">
+    <div class="hero-kicker">
+      <div class="hero-kicker-line"></div>
+      <div class="hero-kicker-text">MYV Smartbooks LLC · Firma de Contabilidad</div>
     </div>
-    <div class="hero-buttons">
-      <a href="#contacto" class="btn-primary">Agenda tu consulta</a>
-      <a href="#paquetes" class="btn-ghost">Ver paquetes →</a>
+    <h1>Contabilidad<br>de <em>alto nivel</em><br>para tu negocio.</h1>
+    <p class="hero-desc">Bookkeeping, taxes y consultoría QuickBooks para negocios latinos en Estados Unidos. Rigor técnico, comunicación en español.</p>
+    <div class="hero-contact">
+      <div class="hero-contact-item">
+        <span class="hero-contact-label">USA</span>
+        +1 (910) 593-2185
+      </div>
+      <div class="hero-contact-item">
+        <span class="hero-contact-label">COL</span>
+        +57 305 232 5932
+      </div>
+      <div class="hero-contact-item">
+        <span class="hero-contact-label">Email</span>
+        info@conectaquickbooks.com
+      </div>
+    </div>
+    <div class="hero-cta">
+      <a href="#contacto" class="btn-dark">Agenda tu consulta</a>
+      <a href="#paquetes" class="btn-text">Ver paquetes →</a>
     </div>
   </div>
 
-  <div class="hero-visual">
-    <div class="hero-card-main">
-      <div class="hc-label">MYV Smartbooks LLC</div>
-      <div class="hc-number">+10</div>
-      <div class="hc-sub">años de experiencia en contabilidad USA</div>
-      <div class="hc-divider"></div>
-      <div class="hc-list">
-        <div class="hc-item"><div class="hc-dot"></div>QuickBooks Online Consulting</div>
-        <div class="hc-item"><div class="hc-dot"></div>Bookkeeping & Reconciliaciones</div>
-        <div class="hc-item"><div class="hc-dot"></div>Taxes corporativos 1120 · 1065 · 1040</div>
-        <div class="hc-item"><div class="hc-dot"></div>Payroll & Sales Tax</div>
-        <div class="hc-item"><div class="hc-dot"></div>IRS Compliance · AFSP</div>
+  <div class="hero-right">
+    <div class="stat-block">
+      <div class="stat-number">+<span>10</span></div>
+      <div class="stat-label">Años de experiencia en contabilidad USA</div>
+    </div>
+    <div class="stat-block">
+      <div class="stat-number">+<span>50</span></div>
+      <div class="stat-label">Clientes atendidos · 100% remotos</div>
+      <div class="stat-services">
+        <div class="stat-service">QuickBooks Online Consulting</div>
+        <div class="stat-service">Bookkeeping & Reconciliaciones</div>
+        <div class="stat-service">Taxes corporativos 1120 · 1065 · 1040</div>
+        <div class="stat-service">Payroll & Sales Tax</div>
+        <div class="stat-service">IRS Compliance · AFSP</div>
       </div>
     </div>
-    <div class="hero-card-sub">
-      <div class="hcs-icon">✓</div>
-      <div>
-        <div class="hcs-text">QuickBooks ProAdvisor Certificada</div>
-        <div class="hcs-sub">AFSP · IRS Annual Filing Season Program</div>
-      </div>
+    <div class="stat-block">
+      <div class="stat-number"><span>ES</span>/<span>EN</span></div>
+      <div class="stat-label">Servicios bilingüe · Español e Inglés</div>
     </div>
   </div>
 </section>
 
-<!-- CREDS BAR -->
-<div class="creds-bar">
-  <div class="cred-item"><div class="cred-line"></div>QuickBooks ProAdvisor</div>
-  <div class="cred-item"><div class="cred-line"></div>AFSP Certificada</div>
-  <div class="cred-item"><div class="cred-line"></div>Negocios latinos en USA</div>
-  <div class="cred-item"><div class="cred-line"></div>100% Remoto · En español</div>
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ticker-item"><div class="ticker-dot"></div>QuickBooks ProAdvisor</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>AFSP Certificada</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>IRS Compliance</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>Tax Forms 1120 · 1120-S · 1065 · 1040</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>Negocios Latinos en USA</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>100% Remoto</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>Enrolled Agent (en proceso)</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>QuickBooks ProAdvisor</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>AFSP Certificada</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>IRS Compliance</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>Tax Forms 1120 · 1120-S · 1065 · 1040</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>Negocios Latinos en USA</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>100% Remoto</div>
+    <div class="ticker-item"><div class="ticker-dot"></div>Enrolled Agent (en proceso)</div>
+  </div>
 </div>
 
 <!-- SERVICES -->
 <section class="services" id="servicios">
-  <div class="section-eyebrow">Servicios</div>
-  <div class="section-title">Todo lo que tu negocio<br>necesita para <em>crecer</em></div>
-  <div class="services-grid">
-    <div class="service-card"><div class="svc-num">01</div><h3>QuickBooks Consulting</h3><p>Configuración, limpieza y optimización de tu cuenta QuickBooks Online. Setup profesional desde cero o corrección de errores contables.</p><div class="svc-price">Desde $150 / sesión</div></div>
-    <div class="service-card"><div class="svc-num">02</div><h3>Bookkeeping Mensual</h3><p>Registro de transacciones, conciliaciones bancarias, cuentas por cobrar y pagar. Estados financieros mensuales listos para decisiones.</p><div class="svc-price">Paquetes desde $300 / mes</div></div>
-    <div class="service-card"><div class="svc-num">03</div><h3>Taxes Corporativos</h3><p>Preparación de declaraciones 1120, 1120-S, 1065 y 1040. Cumplimiento con el IRS y estrategia fiscal para minimizar la carga tributaria.</p><div class="svc-price">Desde $500 / declaración</div></div>
-    <div class="service-card"><div class="svc-num">04</div><h3>Payroll</h3><p>Procesamiento de nómina, W-2, 1099 y reportes trimestrales 941. Sin errores, sin multas, con cumplimiento total.</p><div class="svc-price">Desde $100 / mes</div></div>
-    <div class="service-card"><div class="svc-num">05</div><h3>Sales Tax</h3><p>Registro, cálculo y presentación de Sales Tax según el estado de tu negocio. Evita penalidades y mantén tu empresa en compliance.</p><div class="svc-price">Desde $80 / mes</div></div>
-    <div class="service-card"><div class="svc-num">06</div><h3>Cleanup Contable</h3><p>Limpieza y corrección de libros contables desordenados. Ideal para empresas que necesitan poner sus finanzas en orden antes de taxes.</p><div class="svc-price">Cotización personalizada</div></div>
+  <div class="section-header">
+    <div>
+      <div class="section-kicker">
+        <div class="section-kicker-line"></div>
+        <div class="section-kicker-text">Servicios</div>
+      </div>
+      <h2 class="section-title">Todo lo que tu<br>negocio necesita<br>para <em>crecer</em></h2>
+    </div>
+    <p class="section-desc">Ofrecemos una suite completa de servicios contables y fiscales para negocios latinos en Estados Unidos, con el rigor técnico que el IRS exige y la claridad que mereces.</p>
+  </div>
+
+  <div class="services-list">
+    <div class="service-row">
+      <div class="service-num">01</div>
+      <div class="service-name">QuickBooks Consulting</div>
+      <div class="service-desc">Configuración, limpieza y optimización de QBO. Setup profesional desde cero.</div>
+      <div class="service-price">Desde $150 / sesión</div>
+    </div>
+    <div class="service-row">
+      <div class="service-num">02</div>
+      <div class="service-name">Bookkeeping Mensual</div>
+      <div class="service-desc">Registro, conciliaciones, cuentas por cobrar y pagar, estados financieros.</div>
+      <div class="service-price">Desde $300 / mes</div>
+    </div>
+    <div class="service-row">
+      <div class="service-num">03</div>
+      <div class="service-name">Taxes Corporativos</div>
+      <div class="service-desc">Declaraciones 1120, 1120-S, 1065 y 1040. Estrategia fiscal ante el IRS.</div>
+      <div class="service-price">Desde $500</div>
+    </div>
+    <div class="service-row">
+      <div class="service-num">04</div>
+      <div class="service-name">Payroll</div>
+      <div class="service-desc">Nómina, W-2, 1099 y reportes 941. Sin errores, sin multas.</div>
+      <div class="service-price">Desde $100 / mes</div>
+    </div>
+    <div class="service-row">
+      <div class="service-num">05</div>
+      <div class="service-name">Sales Tax</div>
+      <div class="service-desc">Registro, cálculo y presentación según el estado. Compliance total.</div>
+      <div class="service-price">Desde $80 / mes</div>
+    </div>
+    <div class="service-row">
+      <div class="service-num">06</div>
+      <div class="service-name">Cleanup Contable</div>
+      <div class="service-desc">Corrección de libros desordenados. Lista para taxes o auditoría.</div>
+      <div class="service-price">Cotización</div>
+    </div>
   </div>
 </section>
 
 <!-- PACKAGES -->
 <section class="packages" id="paquetes">
-  <div class="section-eyebrow">Paquetes mensuales</div>
-  <div class="section-title">Planes <em>simples,</em><br>resultados claros</div>
+  <div class="section-header">
+    <div>
+      <div class="section-kicker">
+        <div class="section-kicker-line"></div>
+        <div class="section-kicker-text">Paquetes</div>
+      </div>
+      <h2 class="section-title">Planes <em>simples,</em><br>resultados claros</h2>
+    </div>
+    <p class="section-desc">Paquetes mensuales diseñados para negocios en crecimiento. Sin sorpresas, sin letra pequeña.</p>
+  </div>
+
   <div class="pkg-grid">
     <div class="pkg-card">
       <div class="pkg-name">Starter</div>
@@ -416,6 +742,7 @@ footer { background: var(--navy); padding: 2.5rem 5rem; display: flex; justify-c
       </ul>
       <a href="#contacto" class="pkg-btn">Empezar</a>
     </div>
+
     <div class="pkg-card featured">
       <div class="pkg-badge">Más popular</div>
       <div class="pkg-name">Growth</div>
@@ -430,6 +757,7 @@ footer { background: var(--navy); padding: 2.5rem 5rem; display: flex; justify-c
       </ul>
       <a href="#contacto" class="pkg-btn">Empezar</a>
     </div>
+
     <div class="pkg-card">
       <div class="pkg-name">Pro</div>
       <div class="pkg-price">$900</div>
@@ -447,51 +775,55 @@ footer { background: var(--navy); padding: 2.5rem 5rem; display: flex; justify-c
 </section>
 
 <!-- ABOUT -->
-<section id="nosotros">
-<div class="about">
-  <div>
-    <div class="about-box">
-      <div class="about-firm-name">MYV Smartbooks LLC</div>
-      <div class="about-firm-sub">Firma de contabilidad · Conecta QuickBooks</div>
-      <p class="about-firm-desc">Firma especializada en contabilidad para negocios latinos en Estados Unidos. Servicios 100% remotos, en español, con los más altos estándares del IRS.</p>
-      <div class="team-label">Nuestro equipo</div>
-      <div class="team-member">
-        <div class="team-avatar">MB</div>
-        <div>
-          <div class="team-name">Melissa Buitrago</div>
-          <div class="team-role">Senior Accountant · QuickBooks ProAdvisor · AFSP</div>
-        </div>
-      </div>
-      <div class="about-stats">
-        <div class="about-stat"><div class="num">+10</div><div class="lbl">Años exp.</div></div>
-        <div class="about-stat"><div class="num">+50</div><div class="lbl">Clientes</div></div>
-        <div class="about-stat"><div class="num">100%</div><div class="lbl">Remoto</div></div>
-        <div class="about-stat"><div class="num">ES/EN</div><div class="lbl">Bilingüe</div></div>
-      </div>
+<section class="about" id="nosotros">
+  <div class="about-left">
+    <div class="section-kicker">
+      <div class="section-kicker-line"></div>
+      <div class="section-kicker-text">Nuestra firma</div>
     </div>
-  </div>
-  <div class="about-text">
-    <h2>Una firma <em>comprometida</em><br>con tu éxito</h2>
-    <p>En MYV Smartbooks entendemos los desafíos de manejar un negocio en otro idioma y cultura. Por eso trabajamos en español, con explicaciones claras y sin tecnicismos innecesarios.</p>
-    <p>Nuestra especialidad es QuickBooks Online — desde configuración inicial hasta consultoría avanzada. También preparamos taxes corporativos y personales, con cumplimiento total ante el IRS.</p>
+    <h2>Una firma <em>comprometida</em> con tu éxito</h2>
+    <p>En MYV Smartbooks entendemos los desafíos de manejar un negocio en otro idioma y cultura. Trabajamos en español, con explicaciones claras y sin tecnicismos innecesarios.</p>
+    <p>Nuestra especialidad es QuickBooks Online — desde configuración inicial hasta consultoría avanzada. También preparamos taxes corporativos y personales con cumplimiento total ante el IRS.</p>
     <div class="cred-list">
-      <div class="cred-row"><span class="cred-check">✓</span>QuickBooks ProAdvisor Certificada</div>
-      <div class="cred-row"><span class="cred-check">✓</span>AFSP — IRS Annual Filing Season Program</div>
-      <div class="cred-row"><span class="cred-check">✓</span>Enrolled Agent (en proceso)</div>
-      <div class="cred-row"><span class="cred-check">✓</span>Especialistas en 1120 · 1120-S · 1065 · 1040</div>
+      <div class="cred-item"><span class="cred-check">✓</span>QuickBooks ProAdvisor Certificada</div>
+      <div class="cred-item"><span class="cred-check">✓</span>AFSP — IRS Annual Filing Season Program</div>
+      <div class="cred-item"><span class="cred-check">✓</span>Enrolled Agent (en proceso)</div>
+      <div class="cred-item"><span class="cred-check">✓</span>Especialistas en 1120 · 1120-S · 1065 · 1040</div>
     </div>
   </div>
-</div>
+
+  <div class="about-right">
+    <div class="firm-name">MYV Smartbooks LLC</div>
+    <div class="firm-sub">Firma de Contabilidad · Conecta QuickBooks</div>
+    <p class="firm-desc">Firma especializada en contabilidad para negocios latinos en Estados Unidos. Servicios 100% remotos, en español, con los más altos estándares del IRS.</p>
+    <div class="team-label">Nuestro equipo</div>
+    <div class="team-member">
+      <div class="avatar">MB</div>
+      <div>
+        <div class="member-name">Melissa Buitrago</div>
+        <div class="member-role">Senior Accountant · QuickBooks ProAdvisor · AFSP</div>
+      </div>
+    </div>
+    <div class="firm-stats">
+      <div class="firm-stat"><div class="num">+10</div><div class="lbl">Años de experiencia</div></div>
+      <div class="firm-stat"><div class="num">+50</div><div class="lbl">Clientes atendidos</div></div>
+      <div class="firm-stat"><div class="num">100%</div><div class="lbl">Trabajo remoto</div></div>
+    </div>
+  </div>
 </section>
 
 <!-- CONTACT -->
-<section class="contact-sec" id="contacto">
+<section class="contact" id="contacto">
   <div>
-    <div class="section-eyebrow">Contacto</div>
-    <h2>¿Listo para poner tu<br>contabilidad <em>en orden?</em></h2>
-    <p>Primera consulta gratuita de 30 minutos, sin compromiso. Contáctenos por WhatsApp o email y respondemos en menos de 24 horas.</p>
-    <a href="https://wa.me/573052325932?text=Hola,%20quisiera%20una%20consulta%20gratuita%20con%20MYV%20Smartbooks" class="btn-primary" target="_blank">Agendar consulta gratuita</a>
+    <div class="section-kicker">
+      <div class="section-kicker-line"></div>
+      <div class="section-kicker-text">Contacto</div>
+    </div>
+    <h2>¿Listo para poner tu contabilidad <em>en orden?</em></h2>
+    <p>Primera consulta gratuita de 30 minutos, sin compromiso. Contáctenos y respondemos en menos de 24 horas.</p>
+    <a href="https://wa.me/573052325932?text=Hola,%20quisiera%20una%20consulta%20gratuita%20con%20MYV%20Smartbooks" class="btn-dark" target="_blank">Agendar consulta gratuita</a>
   </div>
+
   <div class="contact-cards">
     <a href="https://wa.me/573052325932" class="contact-card" target="_blank">
       <div class="cc-icon">📱</div>
@@ -514,7 +846,7 @@ footer { background: var(--navy); padding: 2.5rem 5rem; display: flex; justify-c
   <ul class="footer-links">
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#paquetes">Paquetes</a></li>
-    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#nosotros">Firma</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
   <div class="footer-copy">© 2026 MYV Smartbooks LLC · Todos los derechos reservados</div>
